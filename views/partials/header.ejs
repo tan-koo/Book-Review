@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+        <!-- Star check -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- Font -->
+        <link href="https://fonts.googleapis.com/css?family=Mitr&display=swap" rel="stylesheet">
+
+        <!-- Css -->
+        <link rel="stylesheet" href="/stylesheets/style.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    </head>
+    <body>
+
+      <head>
+        <!-- meta tag -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <!-- css -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    
+         <!-- Star check -->
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+         <!-- Font -->
+         <link href="https://fonts.googleapis.com/css?family=Mitr&display=swap" rel="stylesheet">
+    
+         <!-- jQuery library -->
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+         <!-- Popper JS -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    
+         <!-- Latest compiled JavaScript -->
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <title>book review</title>
+        <style media="screen">
+        #footer{
+          background-image: url("https://asiaairticket.com/wp-content/uploads/2017/08/footer-01.png");
+        }
+        </style>
+    </head>
+    
+    <body>
+      <nav class="navbar navbar-expand-md bg-primary navbar-dark">
+        <div class="container">
+            <a class="navbar-brand textlogo" href="/"><i class="fas fa-map-marked-alt"></i> Logo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse text-center" id="collapsibleNavbar">
+              <!-- <input class="form-control" id="myInput" type="text" placeholder="Search.."> -->
+                <ul class="navbar-nav ml-auto" style="font-size: large;">
+                  <!-- ปุ่ม search -->
+                  <form class="form-inline my-2 my-lg-0" action="/book/search" method="GET">  
+                    <input class="form-control mr-sm-2" type="search" name="keyword"  placeholder="ชื่อหนังสือ" aria-label="Search" style="width: 300px;">
+                    <button type="submit" class="btn btn-primary">ค้นหา</button>
+                  </form>
+
+
+                  <% if(locals.user){%>
+                    <li class="nav-item"><a class="nav-link" href="/book/new">Post</a></li>
+                    <% } %>
+                <% if(locals.user){%>
+                <!-- ปุ่มlogin -->
+                <a href="/">
+                  <button type="button" class="btn btn-primary nav-item"><%= user.username %></button>
+                  </a>
+                <a href="/logout">
+                <button type="button" class="btn btn-primary nav-item">Logout</button>
+                </a>
+                <% } %>
+                <% if(!locals.user){%>
+                <a href="/login">
+                  <button type="button" class="btn btn-primary nav-item">Login</button>
+                </a>
+                <a href="/register">
+                <button type="button" class="btn btn-primary nav-item">Register</button>
+                </a>
+                <% } %>
+              </ul>
+                    <!-- <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="">Profile</a>
+                      <a class="dropdown-item" href="/users/logout">Logout</a>
+                    </div> -->
+            </div> 
+        </div>
+    </nav>
+    
+
+                      <!-- ืnavbar ที่ 2 -->
+        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light" id ="navbar-2"> 
+            <a class="navbar-brand" href="/book">หน้าหลัก</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/book/new">Add New Book</a>
+                </li>
+              </ul>
+            </div>
+          </nav> -->

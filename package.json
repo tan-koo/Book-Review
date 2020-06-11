@@ -1,0 +1,34 @@
+{
+  "name": "projectc",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "startd": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "*",
+    "express": "~4.16.1",
+    "express-message": "*",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.17.1",
+    "express-validator": "*",
+    "http-errors": "~1.6.3",
+    "method-override": "^3.0.0",
+    "moment": "*",
+    "mongod": "*",
+    "mongodb": "^3.5.6",
+    "mongoose": "^5.9.10",
+    "monk": "*",
+    "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-http": "*",
+    "passport-local": "*",
+    "passport-local-mongoose": "^6.0.1"
+  }
+}
