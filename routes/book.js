@@ -86,7 +86,7 @@ router.post("/", function(req, res){
   let n_desc = req.body.desc;
   let n_tag  = req.body.tag;
   let n_author = {
-    id:req.user._id,
+    id:req.user.id,
     username:req.user.username
   };
   // let n_comment = req.body.comments;

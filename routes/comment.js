@@ -59,19 +59,16 @@ router.get("/:comment_id/edit",function(req,res){
   
   
   router.put("/:comment_id",function(req,res){
-    let n_name = req.body.name;
-    let n_img  = req.body.imgurl;
-    let n_desc = req.body.desc;
-    let n_tag  = req.body.categories;
-    var n_card = {name:n_name,imgurl:n_img,desc:n_desc,category:n_tag};
-    books.findByIdAndUpdate(req.params.id, n_card ,function(err,updatebook){
+    let n_ment = req.body.editment;
+    var n_card2 = {text:n_ment}
+    console.log(n_ment);
+    // var n_card = {name:n_ment,imgurl:n_img,desc:n_desc,category:n_tag};
+    Comment.findByIdAndUpdate(req.params.comment_id,n_card2 ,function(err,updatebookment){
       if(err){
-        console.log("test 2");
-        res.redirect("/book");
+        res.redirect("back");
       }
       else{
         // console.log(req.body.books)
-        // console.log('test1')
         res.redirect('/book/' + req.params.id);
       }
     })
