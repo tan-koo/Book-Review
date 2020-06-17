@@ -7,6 +7,8 @@ var methodOverride = require('method-override');
 
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
 var db = mongoose.connection;
 
 var passport = require('passport');

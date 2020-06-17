@@ -1,31 +1,29 @@
+
 <%- include("partials/header") %>
-<div class ="container" style="width: 35%; margin:25px auto;height: auto;">
-  <h3 style="text-align: center;">Create a new Book</h3>
+
+<div class="container" style="width: 35%; margin:25px auto;height: auto;">
+  <h3 style="text-align: center;">Insert a new Book</h3>
   <form action="/book/" method="POST">
-      <div class="form-group">
-          <label for="edufakenew">Name of Book</label>
-          <input type="text" class="form-control" name="name" placeholder="Name of Book" required>
-      </div>
-      <div class="form-group">
-          <label for="edufakeURL">URL</label>
-          <input type="text" class="form-control" name="imgurl" placeholder="URL of Image" required>
-      </div>
-      <div class="form-group">
-        <label for="edufakeURL">Des</label>
-        <input type="text" class="form-control" name="desc" placeholder="Description" required>
-      </div>
-      <!-- tag -->
-      <div class="form-group">
-        <label for="edufakeURL">Tag</label>
-        <input type="text" class="form-control" name="tag" placeholder="Enter the tag" required>
-      </div>
-      <!-- <div class="form-group">
-        <label for="edufakeURL">Des</label>
-        <input type="text" class="form-control" name="desc" placeholder="Description" required>
-      </div> -->
+    <div class="form-group">
+      <label for="edufakenew">Name of Book</label>
+      <input type="text" class="form-control" name="name" placeholder="Name of Book" required>
+    </div>
+    <div class="form-group">
+      <label for="edufakeURL">URL</label>
+      <input type="text" class="form-control" name="imgurl" placeholder="URL of Image" required>
+    </div>
+    <div class="form-group">
+      <label for="edufakeURL">Description</label>
+      <input type="text" class="form-control" name="desc" placeholder="Description" required>
+    </div>
+    <div class="form-group">
+      <label for="edufakeURL">Tag</label>
+      <input type="text" class="form-control" name="tag" placeholder="Enter the tag" required>
+    </div>
     <div style="text-align: right;">
-      <button type="submit"  class="btn btn-outline-success">Submit</button>
+      <button type="submit" class="btn btn-outline-success">Submit</button>
     </div>
   </form>
 </div>
+
 <%- include("partials/footer") %>
