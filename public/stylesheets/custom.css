@@ -19,16 +19,9 @@ body
 
 .footer { margin-top: 5rem; }
 
-.register-section
+.register-section , .login-section , .newbook-section
 {
-  margin-top: 1rem;
-  padding-left: 20rem;
-  padding-right: 20rem;
-}
-
-.login-section
-{
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   padding-left: 20rem;
   padding-right: 20rem;
 }

@@ -13,7 +13,6 @@ router.get("/",function(req,res){
       }
       else{
           res.render("landing",{SongMa:ALLData})
-
       }
   })
 });
@@ -35,7 +34,6 @@ router.get("/niyay",function(req,res){
     }
     else{
         res.render("showcatagory",{SongMa2:ALLData2})
-
     }
 })
 })
@@ -47,7 +45,6 @@ router.get("/warasan",function(req,res){
     }
     else{
         res.render("showcatagory",{SongMa2:ALLData2})
-
     }
 })
 })
@@ -59,7 +56,6 @@ router.get("/cartoon",function(req,res){
     }
     else{
         res.render("showcatagory",{SongMa2:ALLData2})
-
     }
 })
 })
@@ -71,7 +67,6 @@ router.get("/home",function(req,res){
     }
     else{
         res.render("showcatagory",{SongMa2:ALLData2})
-
     }
 })
 })

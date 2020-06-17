@@ -36,20 +36,18 @@
         <ul class="navbar-nav ml-auto" style="font-size: large;">
           <form class="form-inline my-2 my-lg-0" action="/book/search" method="GET">
             <input class="form-control mr-sm-2" type="search" name="keyword" aria-label="Search" style="width: 300px;">
-            <button type="submit" class="btn btn-outline-warning">Find</button>
+            <button type="submit" class="btn btn-outline-warning mr-2">Find</button>
           </form>
 
           <% if(locals.user){%>
-          <li class="nav-item"><a class="nav-link" href="/book/new">Post</a></li>
-          <% } %>
-
-          <% if(locals.user){%>
-          <a href="/">
-            <button type="button" class="btn btn-primary nav-item"><%= user.username %></button>
-          </a>
-          <a href="/logout">
-            <button type="button" class="btn btn-primary nav-item">Logout</button>
-          </a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+              aria-expanded="false"><%= user.username %></a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/book/new">Post</a>
+              <a class="dropdown-item" href="/logout">Logout</a>
+            </div>
+          </li>
           <% } %>
 
           <% if(!locals.user){%>
