@@ -17,14 +17,14 @@
       <div class="row">
 
         <% SongMa.forEach(function(im){ %>
-        <div class="col-lg-3 col-sm-6 col-6 mt-4">
-          <div class="card">
+        <div class="col-lg-3 col-sm-6 col-6 mt-4 ml-4">
+          <!-- <div class="card">
             <img src="<%= im.imgurl %>" height="450" width="300" class="img-fluid card-img"
               style="width: 100%; height: 257px;">
             <div class="card-body">
               <h5 class="card-title"><%= im.name %></h5>
               <p class="card-text"><%= im.desc %></p>
-              <p class="card-text">Author : <%= im.author.username %></p>
+              <p class="card-text">By : <%= im.author.username %></p>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
@@ -32,7 +32,10 @@
               <span class="fa fa-star"></span>
             </div>
             <a class="btn btn-primary" href="/book/<%=im._id%>" role="button">Read More</a>
-          </div>
+          </div> -->
+          <a href="/book/<%=im._id%>">
+            <img src="<%= im.imgurl %>" height="200" width="150" class="img-fluid rounded">
+          </a>
         </div>
         <%}); %>
 

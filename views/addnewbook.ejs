@@ -1,42 +1,24 @@
+
 <%- include("partials/header") %>
 
 <div class="container newbook-section">
   <h3 class="text-center mb-4">Insert a new Book</h3>
   <form action="/book/" method="POST">
-    <!-- <div class="form-group">
-      <label for="edufakenew">Title</label>
-      <input type="text" class="form-control" name="name" placeholder="Book Name" required>
-    </div>
-    <div class="form-group">
-      <label for="edufakeURL">URL</label>
-      <input type="text" class="form-control" name="imgurl" placeholder="URL of Image" required>
-    </div>
-    <div class="form-group">
-      <label for="edufakeURL">Description</label>
-      <input type="text" class="form-control" name="desc" placeholder="Description" required>
-    </div>
-    <div class="form-group">
-      <label for="edufakeURL">Tag</label>
-      <input type="text" class="form-control" name="tag" placeholder="Enter the tag" required>
-    </div>
-    <div style="text-align: right;">
-      <button type="submit" class="btn btn-outline-success">Submit</button>
-    </div> -->
 
     <div class="form-row">
       <div class="form-group col">
-        <label for="edufakenew">Title</label>
+        <label>Title</label>
         <input type="text" class="form-control" name="name" placeholder="Book Name" required>
       </div>
       <div class="form-group col">
-        <label for="edufakeURL">Writer</label>
+        <label>Writer</label>
         <input type="text" class="form-control" name="writer" placeholder="Writer" required>
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group col">
-        <label for="edufakeURL">Category</label>
+        <label>Category</label>
         <select class="form-control" name="tag">
           <option selected>Novel</option>
           <option>Magazine</option>
@@ -45,13 +27,13 @@
         </select>
       </div>
       <div class="form-group col">
-        <label for="edufakeURL">Cover</label>
+        <label>Cover</label>
         <input type="text" class="form-control" name="imgurl" placeholder="URL of image" required>
       </div>
     </div>
 
     <div class="form-row">
-      <label for="edufakeURL">Description</label>
+      <label>Description</label>
       <textarea class="form-control" name="desc" rows="4"></textarea>
     </div>
 

@@ -1,21 +1,46 @@
 
 <%- include("partials/header") %>
 
-<div class="container ">
-  <img src="<%= detail.imgurl%>">
-  <h1><%= detail.name%></h1>
-</div>
+<div class="container detail-section mt-5">
+  <div class="row">
+    <div class="col-lg-3">
+      <img src="<%= detail.imgurl %>" class="img-fluid rounded" height="250" width="200">
 
-<div class="container input-group mb-3">
-  <div class="input-group-append">
-    <form action="/book/<%= detail._id %>/comments" method="POST">
-      <input type="text" class="form-control" name="text" placeholder="Your comment here">
-      <button type="submit" class="btn btn-outline-primary" style="float: right;">Submit</button>
-    </form>
+      <% if(currentUser && detail.author.id.equals(currentUser._id)) { %>
+      <div class="row m-3 pl-1">
+        <div>
+          <a class="btn btn-warning mr-3" href="/book/<%= detail._id %>/edit">Edit</a>
+        </div>
+        <form action="/book/<%= detail._id %>?_method=DELETE" method="POST">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+      <% } %>
+
+    </div>
+    <div class="col-lg-9 pt-4">
+      <h6>Title : <%= detail.name %></h6>
+      <h6>Author : <%= detail.writer %></h6>
+      <h6>Category : <%= detail.category %></h6>
+      <h6>Description : <%= detail.desc %></h6>
+    </div>
   </div>
+
+    <!-- <div class="input-group-append">
+      <form action="/book/<%= detail._id %>/comments" method="POST">
+        <input type="text" class="form-control" name="text" placeholder="Your comment here">
+        <button type="submit" class="btn btn-outline-primary" style="float: right;">Submit</button>
+      </form>
+    </div> -->
+
+    <form class="newment-section">
+      <textarea class="form-control mb-2" name="text" rows="3"></textarea>
+      <button type="submit" class="btn btn-info" style="float: right;">Comment</button>
+    </form>
+  
 </div>
 
-<% if(currentUser && detail.author.id.equals(currentUser._id)) { %>
+<!-- <% if(currentUser && detail.author.id.equals(currentUser._id)) { %>
 <div class="container">
   <div>
     <a class="btn btn-waring" href="/book/<%= detail._id %>/edit">Edit</a>
@@ -24,13 +49,13 @@
     <button class="btn btn-outline-danger">Delete</button>
   </form>
 </div>
-<% } %>
+<% } %> -->
 
+<% detail.comments.forEach(function(comment){ %>
 <div class="container">
-  <% detail.comments.forEach(function(comment){ %>
   <p><strong><%= comment.userment.username %></strong> - <%= comment.text %></p>
   <a class="btn btn-waring" href="/book/<%= detail._id %>/comments/<%= comment._id %>/edit">Edit</a>
-  <% }) %>
 </div>
+<% }) %>
 
 <%- include("partials/footer") %>

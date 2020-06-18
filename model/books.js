@@ -1,6 +1,7 @@
+
 const mongoose = require('mongoose'),
-      Comment = require('../model/comment'),
-      User = require('../model/user');
+    Comment = require('../model/comment'),
+    User = require('../model/user');
 // var mongoDB = 'mongodb://localhost:27017/LoginDB';
 passportLocalMongoose = require('passport-local-mongoose');
 // var ObjectId = require('mongodb').ObjectId;
@@ -10,27 +11,28 @@ passportLocalMongoose = require('passport-local-mongoose');
 // })
 
 let bookSchema = new mongoose.Schema({
-    name:String,
-    imgurl:String,
-    desc:String,
-    category:String,
-    author:{
-        id:{
+    name: String,
+    writer: String,
+    imgurl: String,
+    desc: String,
+    category: String,
+    author: {
+        id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref:'user'
+            ref: 'user'
         },
-        username:String
+        username: String
     },
-    comments:[
+    comments: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref:"Comment"
+            ref: "Comment"
         }
     ],
 });
 
-bookSchema.plugin(passportLocalMongoose);/*อันนี้เพิ่มมาใหม่*/
+bookSchema.plugin(passportLocalMongoose); /* อันนี้เพิ่มมาใหม่ */
 
-/*var books = */module.exports = mongoose.model('books',bookSchema);
+/* var books = */ module.exports = mongoose.model('books', bookSchema);
 
 // let books = mongoose.model("books",bookSchema);
