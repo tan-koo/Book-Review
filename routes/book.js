@@ -140,10 +140,11 @@ router.get("/:id/edit", middleware.chechbookOwnership, function (req, res) {
 
 router.put("/:id", middleware.chechbookOwnership, function (req, res) {
   let n_name = req.body.name;
+  let n_writer = req.body.writer;
   let n_img = req.body.imgurl;
   let n_desc = req.body.desc;
-  let n_tag = req.body.categories;
-  var n_card = { name: n_name, imgurl: n_img, desc: n_desc, category: n_tag };
+  let n_tag = req.body.tag;
+  var n_card = { name: n_name, writer: n_writer, imgurl: n_img, desc: n_desc, category: n_tag };
   books.findByIdAndUpdate(req.params.id, n_card, function (err, updatebook) {
     if (err) {
       console.log("test 2");

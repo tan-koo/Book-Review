@@ -1,30 +1,47 @@
 
 <%- include("partials/header") %>
 
-<div class="container" style="width: 35%; margin:25px auto;height: auto;">
-  <h3 style="text-align: center;">Edit <%= book.name %>Book</h3>
+<div class="container editbook-section">
+  <h3 class="text-center mb-4">Edit Book</h3>
   <form action="/book/<%= book._id %>?_method=PUT" method="POST">
-    <div class="form-group">
-      <label for="edufakenew">Name of Book</label>
-      <input type="text" class="form-control" name="name" value="<%= book.name %>" placeholder="Name of Book" required>
+
+    <div class="form-row">
+      <div class="form-group col">
+        <label>Title</label>
+        <input type="text" class="form-control" name="name" value="<%= book.name %>"
+        placeholder="Book Name" required>
+      </div>
+      <div class="form-group col">
+        <label>Writer</label>
+        <input type="text" class="form-control" name="writer" value="<%= book.writer %>"
+        placeholder="Writer" required>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="edufakeURL">URL</label>
-      <input type="text" class="form-control" name="imgurl" value="<%= book.imgurl %>" placeholder="URL of Image"
-        required>
+
+    <div class="form-row">
+      <div class="form-group col">
+        <label>Category</label>
+        <select class="form-control" name="tag">
+          <option selected>Novel</option>
+          <option>Magazine</option>
+          <option>Cartoon</option>
+          <option>House</option>
+        </select>
+      </div>
+      <div class="form-group col">
+        <label>Cover</label>
+        <input type="text" class="form-control" name="imgurl" value="<%= book.imgurl %>"
+        placeholder="URL of image" required>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="edufakeURL">Des</label>
-      <input type="text" class="form-control" name="desc" value="<%= book.desc %>" placeholder="Description" required>
+
+    <div class="form-row">
+      <label>Description</label>
+      <textarea class="form-control" name="desc" rows="4"></textarea>
     </div>
-    <div class="form-group">
-      <label for="edufakeURL">Tag</label>
-      <input type="text" class="form-control" name="categories" value="<%= book.tag %>"
-        placeholder="Enter the categories">
-    </div>
-    <div style="text-align: right;">
-      <button type="submit" class="btn btn-outline-success">Submit</button>
-    </div>
+
+    <button type="submit" class="btn btn-block btn-outline-warning mt-3">Update</button>
+
   </form>
 </div>
 

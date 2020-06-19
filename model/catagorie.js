@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 let categologSchema = new mongoose.Schema({

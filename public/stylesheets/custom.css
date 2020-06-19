@@ -19,7 +19,7 @@ body
 
 .footer { margin-top: 5rem; }
 
-.register-section , .login-section , .newbook-section
+.register-section , .login-section , .newbook-section , .editbook-section
 {
   margin-top: 1.5rem;
   padding-left: 20rem;
