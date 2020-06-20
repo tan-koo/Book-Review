@@ -170,5 +170,4 @@ router.delete("/:id", middleware.chechbookOwnership, function (req, res) {
   })
 })
 
-
 module.exports = router;
