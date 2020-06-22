@@ -3,7 +3,6 @@ var express = require('express');
 const router = express.Router();
 const books = require('../model/books');
 const catalog = require('../model/catagorie')
-// var user  = require('../model/user');
 const comments = require('../model/comment');
 const middleware = require('../middleware');
 const multer = require('multer');
@@ -29,10 +28,28 @@ const imagefilter = function (req, res, cb) {
 
 const upload = multer({ storage: storage, filefilter: imagefilter });
 
-router.get("/", function (req, res) {
-  books.find({}, function (error, ALLData) {
-    if (error) {
-      console.log(error)
+// router.get("/", function (req, res) {
+//   books.find({}, function (error, ALLData) {
+//     if (error) {
+//       console.log(error)
+//     }
+//     else {
+//       catalog.find({}, function (err, Allcate) {
+//         if (err) {
+//           console.log(err)
+//         }
+//         else {
+//           res.render("landing", { SongMa: ALLData, Songma3: Allcate });
+//         }
+//       })
+//     }
+//   })
+// });
+
+router.get('/', function (req, res, next) {
+  books.paginate({}, { page: 1, limit: 3 }, function (err, ALLData) {
+    if (err) {
+      console.log(err);
     }
     else {
       catalog.find({}, function (err, Allcate) {
@@ -40,9 +57,42 @@ router.get("/", function (req, res) {
           console.log(err)
         }
         else {
-          res.render("landing", { SongMa: ALLData, Songma3: Allcate });
+          // console.log(ALLData);
+          // res.render("landing",{SongMa:ALLData,Songma3:Allcate});
+          res.render('landing', {
+            SongMa: ALLData.docs, Songma3: Allcate, total: ALLData.total, limit: ALLData.limit,
+            page: ALLData.page,
+            pages: ALLData.pages
+          })
         }
-      })
+      });
+    }
+  })
+});
+
+// page
+router.get('/page/:page-:limit', function (req, res, next) {
+  var page = req.params.page || 1;
+  var r_limit = req.params.limit || 2;
+  var limit = parseInt(r_limit);
+  books.paginate({}, { page: page, limit: limit }, function (err, ALLData) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      catalog.find({}, function (err, Allcate) {
+        if (err) {
+          console.log(err)
+        }
+        else {
+          // res.render("landing",{SongMa:ALLData,Songma3:Allcate});
+          res.render('landing', {
+            SongMa: ALLData.docs, Songma3: Allcate, total: ALLData.total, limit: ALLData.limit,
+            page: page,
+            pages: ALLData.pages
+          })
+        }
+      });
     }
   })
 });
