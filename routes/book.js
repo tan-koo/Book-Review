@@ -81,7 +81,7 @@ router.get("/new", function (req, res) {
 });
 
 // new book
-router.post("/", function (req, res) {
+router.post("/", upload.single('imgurl'), function (req, res) {
   let n_name = req.body.name;
   let n_writer = req.body.writer;
   let n_imgurl = req.file.filename;
@@ -148,7 +148,7 @@ router.get("/:id/edit", middleware.chechbookOwnership, function (req, res) {
   })
 })
 
-router.put("/:id", middleware.chechbookOwnership, function (req, res) {
+router.put("/:id", middleware.chechbookOwnership, upload.single('imgurl'), function (req, res) {
   let n_name = req.body.name;
   let n_writer = req.body.writer;
   let n_img = req.file.filename;

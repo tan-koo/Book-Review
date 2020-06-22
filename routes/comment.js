@@ -43,7 +43,7 @@ router.post('/', function (req, res) {
     })
 })
 
-// edit comment
+// edit & update
 router.get("/:comment_id/edit", function (req, res) {
     Comment.findById(req.params.comment_id, function (err, foundcomment) {
         if (err) {

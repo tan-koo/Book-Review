@@ -1,12 +1,16 @@
+
 <%- include("../partials/header") %>
-<div class="container" style="width:35%;margin:25px auto">
-    <h3 style="text-align: center;">Edit comment</h3>
+
+<div class="container editment-section">
+    <h3 style="text-align: center;">Edit Comment</h3>
     <form action="/book/<%= book_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
         <div class="form-group">
             <label for="commentText">Comment</label>
-            <input type="text" class="form-control" name="editment" value="<%= comment.text%>">
+            <textarea class="form-control" name="editment" rows="3"></textarea>
+            <!-- <input type="text" class="form-control" name="editment" value="<%= comment.text%>"> -->
         </div>
-        <button type="submit" class="btn btn-outline-primary" style="float: right;">Submit</button>
+        <button type="submit" class="btn btn-outline-warning" style="float: right;">Update</button>
     </form>
 </div>
+
 <%- include("../partials/footer") %>
