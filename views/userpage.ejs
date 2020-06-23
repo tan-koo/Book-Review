@@ -1,0 +1,10 @@
+
+<%- include("partials/header") %>
+
+<p><%= result1.username %></p>
+
+<% result2.forEach(function(im){ %>
+    <img src="/uploads/<%= im.imgurl %>">
+<% }) %>
+
+<%- include("partials/footer") %>

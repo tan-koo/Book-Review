@@ -17,6 +17,7 @@ let bookSchema = new mongoose.Schema({
     imgurl: String,
     desc: String,
     category: String,
+    views: Number,
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

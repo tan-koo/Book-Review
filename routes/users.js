@@ -5,15 +5,20 @@ var User = require('../model/user');
 var passport = require('passport');
 var Localstrategy = require('passport-local').Strategy;
 
-const {
-  check,
-  validationResult
-} = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   res.render('index');
 });
+
+router.get('/user/:userid', function (req, res) {
+  User.findById(req.params.userid).populate({
+    path: 'bookid', model: 'books'
+  }).exec(function (err, DataUser) {
+    res.render("userpage", { result1: DataUser, result2: DataUser.bookid });
+  })
+})
 
 function loginyoung(req, res, next) {
   if (req.isAuthenticated()) {
@@ -27,7 +32,6 @@ function loginyoung(req, res, next) {
 // router.get('/new', loginyoung,function(req, res, next) {
 //     res.render('addnewbook');
 // });
-
 
 // router.get('/book', function(req, res, next) {
 //   res.render('landing');

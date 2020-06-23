@@ -116,7 +116,7 @@ router.get("/search", function (req, res) {
   }
   else {
     // Get all posts from DB
-    post.find({}, function (err, allposts) {
+    books.find({}, function (err, allposts) {
       if (err) {
         console.log(err);
       } else {
@@ -137,6 +137,7 @@ router.post("/", upload.single('imgurl'), function (req, res) {
   let n_imgurl = req.file.filename;
   let n_desc = req.body.desc;
   let n_tag = req.body.tag;
+  let n_views = 0;
   let n_author = {
     id: req.user.id,
     username: req.user.username
@@ -144,13 +145,24 @@ router.post("/", upload.single('imgurl'), function (req, res) {
   // let n_comment = req.body.comments;
   // let n_authurid = req.body.authurID;
   // let n_nameuser = req.body.nameuser;
-  let schema_post = { name: n_name, writer: n_writer, imgurl: n_imgurl, desc: n_desc, author: n_author, category: n_tag };
+  let schema_post = {
+    name: n_name, writer: n_writer, imgurl: n_imgurl, desc: n_desc, author: n_author,
+    category: n_tag, views: n_views
+  };
   books.create(schema_post, function (err, newdata) {
     if (err) {
       console.log(err);
     }
     else {
-      console.log(newdata);
+      User.findById(req.user.id, function (err, userna) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          userna.bookid.push(newdata);
+          userna.save();
+        }
+      })
       res.redirect("/book");
     }
   })
@@ -175,11 +187,11 @@ router.get("/categorie/:text", function (req, res) {
 })
 
 // detail
-router.get("/:id", middleware.loginyoung, function (req, res) {
+router.get("/:id", middleware.loginyoung, async function (req, res) {
+  const plus = await books.findById(req.params.id, function (req, bada) { });
+  await books.findByIdAndUpdate(req.params.id, { views: (plus.views + 1) });
   books.findById(req.params.id).populate({
-    path: 'comments', model: 'Comment', populate: ({
-      path: 'userment', model: 'User'
-    })
+    path: 'comments', model: 'Comment', populate: ({ path: 'userment', model: 'User' })
   }).exec(function (error, idbook) {
     if (error) {
       console.log(error)

@@ -19,7 +19,13 @@ var userSchema = mongoose.Schema({
     username: String,
     permission: String,
     email: String,
-    password: String
+    password: String,
+    bookid: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "books"
+        }
+    ],
 });
 
 var User = module.exports = mongoose.model('User', userSchema);
