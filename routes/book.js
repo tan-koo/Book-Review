@@ -4,12 +4,12 @@ const router = express.Router();
 const books = require('../model/books');
 const catalog = require('../model/catagorie')
 const comments = require('../model/comment');
+const User = require('../model/user')
 const middleware = require('../middleware');
 const multer = require('multer');
 const path = require('path');
-function escapeRegex(text) {
-  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};
+
+function escapeRegex(text) { return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"); };
 
 const storage = multer.diskStorage({
   destination: './public/uploads',
@@ -47,7 +47,7 @@ const upload = multer({ storage: storage, filefilter: imagefilter });
 // });
 
 router.get('/', function (req, res, next) {
-  books.paginate({}, { page: 1, limit: 3 }, function (err, ALLData) {
+  books.paginate({}, { page: 1, limit: 8 }, function (err, ALLData) {
     if (err) {
       console.log(err);
     }
@@ -60,9 +60,8 @@ router.get('/', function (req, res, next) {
           // console.log(ALLData);
           // res.render("landing",{SongMa:ALLData,Songma3:Allcate});
           res.render('landing', {
-            SongMa: ALLData.docs, Songma3: Allcate, total: ALLData.total, limit: ALLData.limit,
-            page: ALLData.page,
-            pages: ALLData.pages
+            SongMa: ALLData.docs, Songma3: Allcate, total: ALLData.total,
+            limit: ALLData.limit, page: ALLData.page, pages: ALLData.pages
           })
         }
       });
@@ -87,9 +86,8 @@ router.get('/page/:page-:limit', function (req, res, next) {
         else {
           // res.render("landing",{SongMa:ALLData,Songma3:Allcate});
           res.render('landing', {
-            SongMa: ALLData.docs, Songma3: Allcate, total: ALLData.total, limit: ALLData.limit,
-            page: page,
-            pages: ALLData.pages
+            SongMa: ALLData.docs, Songma3: Allcate, total: ALLData.total,
+            limit: ALLData.limit, page: page, pages: ALLData.pages
           })
         }
       });
@@ -163,7 +161,7 @@ router.post("/", upload.single('imgurl'), function (req, res) {
           userna.save();
         }
       })
-      res.redirect("/book");
+      res.redirect("/book/");
     }
   })
 });

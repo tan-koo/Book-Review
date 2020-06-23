@@ -1,10 +1,16 @@
 
 <%- include("partials/header") %>
 
-<p><%= result1.username %></p>
-
-<% result2.forEach(function(im){ %>
-    <img src="/uploads/<%= im.imgurl %>">
-<% }) %>
+<div class="container bookpost-section">
+    <h1 class="text-center">Book Post</h1>
+    <div class="row mt-2">
+        <!-- <p><%= result1.username %></p> -->
+        <% result2.forEach(function(im){ %>
+        <div class="col-lg-3 col-sm-6 col-6">
+            <img src="/uploads/<%= im.imgurl %>" height="200" width="150" class="img-fluid rounded">
+        </div>
+        <% }) %>
+    </div>
+</div>
 
 <%- include("partials/footer") %>

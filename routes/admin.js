@@ -18,7 +18,7 @@ router.post("/addlaew", function (req, res) {
             console.log(err);
         }
         else {
-            res.redirect("/book");
+            res.redirect("/book/");
         }
     })
 });

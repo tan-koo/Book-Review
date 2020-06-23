@@ -1,35 +1,16 @@
 
 <%- include("partials/header") %>
 
-<div class="container mt-3">
+<div class="container search-section mt-2">
   <div class="row">
 
-    <div class="col-lg-2 mt-3">
-      <div class="list-group">
-        <h5 class="list-group-item active text-center">Category</h5>
-
-        <% Songma3.forEach(function(cate){ %>
-        <ul style="list-style-type:none;" id="chonlasit2" class="hidden">
-          <li id="right"><a href="/book/categorie/<%= cate.text %>"><%= cate.text %></a></li>
-        </ul>
-        <% }); %>
-
-      </div>
+    <% ItemSearch.forEach(function(im){ %>
+    <div class="col-lg-3 col-sm-6 col-6 mt-3">
+      <a href="/book/<%=im._id%>">
+        <img src="/uploads/<%= im.imgurl %>" height="200" width="150" class="img-fluid rounded">
+      </a>
     </div>
-
-    <div class="col-lg-10">
-      <div class="row">
-
-        <% ItemSearch.forEach(function(im){ %>
-        <div class="col-lg-3 col-sm-6 col-6 mt-4">
-          <a href="/book/<%=im._id%>">
-            <img src="/uploads/<%= im.imgurl %>" height="200" width="150" class="img-fluid rounded">
-          </a>
-        </div>
-        <%}); %>
-
-      </div>
-    </div>
+    <%}); %>
 
   </div>
 </div>
