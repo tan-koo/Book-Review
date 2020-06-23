@@ -30,21 +30,52 @@
       </div>
     </div>
 
-    <div class="col-lg-10">
+    <div class="col-lg-10 mt-3">
       <div class="row">
+
         <% if(SongMa.length){ %>
           <%  for(var i = 0;i < SongMa.length;i++) { %>
           <a href="/book/<%=SongMa[i]._id%>">
             <img src='/uploads/<%= SongMa[i].imgurl %>' height="200" width="150" class="img-fluid rounded">
           </a>
         <% }} %>
+
       </div>
     </div>
 
   </div>
+
+  <div class="row mt-4">
+    <div class="col-lg-12">
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+
+        <li class="page-item"><a class="page-link" href="/book/page/1-<%=limit%>">First</a></li>
+        
+        <li class="page-item">
+          <%if(page!=1) {
+            var a=parseInt(page)-1; %>
+              <a class="page-link" href="/book/page/<%=a%>-<%=limit%>">Previous</a>
+          <% } %>
+        </li>
+  
+        <li class="page-item">
+          <%if(pages!=page) {
+            page=parseInt(page)+1; %>
+              <a class="page-link" href="/book/page/<%=page%>-<%=limit%>">Next</a>
+          <% } %>
+        </li>
+  
+        <li class="page-item"><a class="page-link" href="/book/page/<%=pages%>-<%=limit%>">Last</a></li>
+      
+      </ul>
+    </nav>
+    </div>
+  </div>
+
 </div>
 
-<div class="container">
+<!-- <div class="container">
   <nav aria-label="Page navigation example">
     <ul class="pagination">
 
@@ -63,12 +94,12 @@
             <a class="page-link" href="/book/page/<%=page%>-<%=limit%>">Next</a>
         <% } %>
       </li>
-      
+
       <li class="page-item"><a class="page-link" href="/book/page/<%=pages%>-<%=limit%>">Last</a></li>
     
     </ul>
   </nav>
-</div>
+</div> -->
 
 <script>
   $(".sidebar2").ready(function () {
