@@ -46,16 +46,13 @@ const upload = multer({ storage: storage, filefilter: imagefilter });
 //   })
 // });
 
+// book
 router.get('/', function (req, res, next) {
-  books.paginate({}, { page: 1, limit: 8 }, function (err, ALLData) {
-    if (err) {
-      console.log(err);
-    }
+  books.paginate({}, { page: 1, limit: 8, sort: { views: -1 } }, function (err, ALLData) {
+    if (err) { console.log(err); }
     else {
       catalog.find({}, function (err, Allcate) {
-        if (err) {
-          console.log(err)
-        }
+        if (err) { console.log(err) }
         else {
           // console.log(ALLData);
           // res.render("landing",{SongMa:ALLData,Songma3:Allcate});
@@ -74,15 +71,11 @@ router.get('/page/:page-:limit', function (req, res, next) {
   var page = req.params.page || 1;
   var r_limit = req.params.limit || 2;
   var limit = parseInt(r_limit);
-  books.paginate({}, { page: page, limit: limit }, function (err, ALLData) {
-    if (err) {
-      console.log(err);
-    }
+  books.paginate({}, { page: page, limit: limit, sort: { views: -1 } }, function (err, ALLData) {
+    if (err) { console.log(err); }
     else {
       catalog.find({}, function (err, Allcate) {
-        if (err) {
-          console.log(err)
-        }
+        if (err) { console.log(err) }
         else {
           // res.render("landing",{SongMa:ALLData,Songma3:Allcate});
           res.render('landing', {
@@ -95,40 +88,37 @@ router.get('/page/:page-:limit', function (req, res, next) {
   })
 });
 
+// search
 router.get("/search", function (req, res) {
-  var noMatch = null;
   if (req.query.keyword) {
     const regex = new RegExp(escapeRegex(req.query.keyword), 'gi');
     // Get all posts from DB
     books.find({ name: regex }, function (err, allposts) {
-      if (err) {
-        console.log(err);
-      }
+      if (err) { console.log(err); }
       else {
         if (allposts.length < 1) {
           noMatch = "Can not find the post you are looking for";
         }
-        res.render("search", { ItemSearch: allposts, noMatch: noMatch })
+        res.render("search", { ItemSearch: allposts, noMatch: "mainull" })
       }
     });
   }
   else {
     // Get all posts from DB
     books.find({}, function (err, allposts) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render("search", { ItemSearch: allposts, page: 'posts', noMatch: noMatch });
+      if (err) { console.log(err); }
+      else {
+        res.render("search", { ItemSearch: allposts, page: 'posts', noMatch: "null" });
       }
     });
   }
 });
 
+// new book
 router.get("/new", function (req, res) {
   res.render("addnewbook");
 });
 
-// new book
 router.post("/", upload.single('imgurl'), function (req, res) {
   let n_name = req.body.name;
   let n_writer = req.body.writer;
@@ -148,14 +138,10 @@ router.post("/", upload.single('imgurl'), function (req, res) {
     category: n_tag, views: n_views
   };
   books.create(schema_post, function (err, newdata) {
-    if (err) {
-      console.log(err);
-    }
+    if (err) { console.log(err); }
     else {
       User.findById(req.user.id, function (err, userna) {
-        if (err) {
-          console.log(err);
-        }
+        if (err) { console.log(err); }
         else {
           userna.bookid.push(newdata);
           userna.save();
@@ -166,23 +152,63 @@ router.post("/", upload.single('imgurl'), function (req, res) {
   })
 });
 
-router.get("/categorie/:text", function (req, res) {
-  books.find({ category: req.params.text }, function (error, AllData2) {
-    if (error) {
-      console.log("error");
-    }
+// router.get("/categorie/:text", function (req, res) {
+//   books.find({ category: req.params.text }, function (error, AllData2) {
+//     if (error) {
+//       console.log("error");
+//     }
+//     else {
+//       catalog.find({}, function (err, Allcate) {
+//         if (err) {
+//           console.log("error")
+//         }
+//         else {
+//           res.render("showcatagory", { SongMa2: AllData2, SongMa3: Allcate })
+//         }
+//       })
+//     }
+//   })
+// })
+
+// category
+router.get('/categorie/:text', function (req, res) {
+  books.paginate({ category: req.params.text }, { page: 1, limit: 8 }, function (err, ALLData2) {
+    if (err) { console.log(err); }
     else {
       catalog.find({}, function (err, Allcate) {
-        if (err) {
-          console.log("error")
-        }
+        if (err) { console.log(err) }
         else {
-          res.render("showcatagory", { SongMa2: AllData2, SongMa3: Allcate })
+          // res.render("landing",{SongMa:ALLData,Songma3:Allcate});
+          res.render('showcatagory', {
+            title: req.params.text, SongMa2: ALLData2.docs, SongMa3: Allcate, total: ALLData2.total,
+            limit: ALLData2.limit, page: ALLData2.page, pages: ALLData2.pages
+          })
         }
-      })
+      });
     }
   })
-})
+});
+
+router.get('/categorie/:text/page/:page-:limit', function (req, res) {
+  var page = req.params.page || 1;
+  var r_limit = req.params.limit || 2;
+  var limit = parseInt(r_limit);
+  books.paginate({ category: req.params.text }, { page: page, limit: limit }, function (err, ALLData) {
+    if (err) { console.log(err); }
+    else {
+      catalog.find({}, function (err, Allcate) {
+        if (err) { console.log(err) }
+        else {
+          // res.render("landing",{SongMa:ALLData,Songma3:Allcate});
+          res.render('showcatagory', {
+            title: req.params.text, SongMa2: ALLData.docs, SongMa3: Allcate, total: ALLData.total,
+            limit: ALLData.limit, page: page, pages: ALLData.pages
+          })
+        }
+      });
+    }
+  })
+});
 
 // detail
 router.get("/:id", middleware.loginyoung, async function (req, res) {
@@ -191,9 +217,7 @@ router.get("/:id", middleware.loginyoung, async function (req, res) {
   books.findById(req.params.id).populate({
     path: 'comments', model: 'Comment', populate: ({ path: 'userment', model: 'User' })
   }).exec(function (error, idbook) {
-    if (error) {
-      console.log(error)
-    }
+    if (error) { console.log(error) }
     else {
       // console.log(idbook);
       res.render("showdetail", { detail: idbook });
@@ -208,32 +232,50 @@ router.get("/:id/edit", middleware.chechbookOwnership, function (req, res) {
   })
 })
 
-router.put("/:id", middleware.chechbookOwnership, upload.single('imgurl'), function (req, res) {
-  let n_name = req.body.name;
-  let n_writer = req.body.writer;
-  let n_img = req.file.filename;
-  let n_desc = req.body.desc;
-  let n_tag = req.body.tag;
-  var n_card = { name: n_name, writer: n_writer, imgurl: n_img, desc: n_desc, category: n_tag };
-  books.findByIdAndUpdate(req.params.id, n_card, function (err, updatebook) {
-    if (err) {
-      console.log("test 2");
-      res.redirect("/book");
-    }
-    else {
-      // console.log(req.body.books)
-      // console.log('test1')
-      res.redirect('/book/' + req.params.id);
-    }
-  })
+router.put("/:id", upload.single('imgurl'), middleware.chechbookOwnership, function (req, res) {
+  if (req.file) {
+    let n_name = req.body.name;
+    let n_writ = req.body.writer;
+    let n_img = req.file.filename;
+    let n_desc = req.body.desc;
+    let n_tag = req.body.categories;
+    var n_card = { name: n_name, imgurl: n_img, desc: n_desc, category: n_tag, writer: n_writ };
+    books.findByIdAndUpdate(req.params.id, n_card, function (err, updatebook) {
+      if (err) {
+        console.log("test 2");
+        res.redirect("/book");
+      }
+      else {
+        // console.log(req.body.books)
+        // console.log('test1')
+        res.redirect('/book/' + req.params.id);
+      }
+    })
+  }
+  else {
+    let n_name = req.body.name;
+    let n_writ = req.body.writer;
+    let n_desc = req.body.desc;
+    let n_tag = req.body.categories;
+    var n_card = { name: n_name, desc: n_desc, category: n_tag, writer: n_writ };
+    books.findByIdAndUpdate(req.params.id, n_card, function (err, updatebook) {
+      if (err) {
+        console.log("test 2");
+        res.redirect("/book");
+      }
+      else {
+        // console.log(req.body.books)
+        // console.log('test1')
+        res.redirect('/book/' + req.params.id);
+      }
+    })
+  }
 })
 
 // delete
 router.delete("/:id", middleware.chechbookOwnership, function (req, res) {
   books.findByIdAndRemove(req.params.id, function (err) {
-    if (err) {
-      res.redirect('/book');
-    }
+    if (err) { res.redirect('/book'); }
     else {
       res.redirect('/book');
     }

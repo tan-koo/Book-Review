@@ -2,10 +2,32 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../model/user');
+var books = require('../model/books');
 var passport = require('passport');
 var Localstrategy = require('passport-local').Strategy;
+const multer = require('multer');
+const path = require('path');
 
 const { check, validationResult } = require('express-validator');
+
+const { locals } = require('../app');
+
+const storage = multer.diskStorage({
+  destination: './public/uploads',
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+})
+
+const imagefilter = function (req, res, cb) {
+  var ext = path.extname(file.originalname);
+  if (ext !== '.png' && ext !== '.gif' && ext !== '.jpg' && ext !== '.jpeg') {
+    return cb(new Error("Type File not include"), false)
+  }
+  cb(null, true);
+}
+
+const upload = multer({ storage: storage, filefilter: imagefilter });
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -20,10 +42,49 @@ router.get('/user/:userid', function (req, res) {
   })
 })
 
+router.get("/user/:userid/editimg", function (req, res) {
+  User.findById(req.params.userid, function (err, founduser) {
+    if (err) { console.log("test 2"); }
+    else {
+      res.render("userpicedit", { user: founduser })
+    }
+  })
+})
+
+router.put("/user/:userid", upload.single('userpic'), function (req, res) {
+  let n_img = req.file.filename;
+  var n_card = { userimg: n_img };
+  User.findByIdAndUpdate(req.params.userid, n_card, function (err, updateimguser) {
+    if (err) { console.log("test 2"); }
+    else {
+      res.redirect('/user/' + req.params.userid);
+    }
+  })
+})
+
+router.get("/user/:userid/editinfo", function (req, res) {
+  User.findById(req.params.userid, function (err, founduser) {
+    if (err) { console.log("test 2"); }
+    else {
+      res.render("editinfo", { user: founduser })
+    }
+  })
+})
+
+router.put("/user/:userid/infoedit", upload.single('userpic'), function (req, res) {
+  let n_name = req.body.name_user;
+  let n_email = req.body.email_user;
+  var n_card = { username: n_name, email: n_email };
+  User.findByIdAndUpdate(req.params.userid, n_card, function (err, updateinfouser) {
+    if (err) { console.log("test 2"); }
+    else {
+      res.redirect('/user/' + req.params.userid);
+    }
+  })
+})
+
 function loginyoung(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
+  if (req.isAuthenticated()) { return next(); }
   else {
     res.redirect('/login');
   }
@@ -66,17 +127,12 @@ passport.deserializeUser(function (id, done) {
 passport.use(new Localstrategy(function (username, password, done) {
   User.getUserByName(username, function (err, user) {
     if (err) throw error
-    if (!user) {
-      //ไม่เจอusernameนี้
-      return done(null, false)
-    }
+    if (!user) { return done(null, false) }
     else {
       User.comparePassowrd(password, user.password, function (err, isMatch) {
         if (err) throw error
         console.log(isMatch);
-        if (isMatch) {
-          return done(null, user)
-        }
+        if (isMatch) { return done(null, user) }
         else {
           return done(null, false)
         }
@@ -115,9 +171,7 @@ router.post('/register', [
       }
       if (!check) {
         User.createUser(newUser, function (err, user) {
-          if (err) {
-            console.log('Where ?????????')
-          }
+          if (err) { console.log('Where ?') }
         });
         res.location('/');
         res.redirect('/');

@@ -1,3 +1,4 @@
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -18,12 +19,13 @@ var session = require('express-session');
 var bookRouter = require('./routes/book');
 var usersRouter = require('./routes/users');
 var commentsRouters = require('./routes/comment');
+var adminRouter = require('./routes/admin');
 
 var app = express();
 app.use(session({
-    secret:'keyboard cat',
-    resave: false,
-    saveUninitialized:true,
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
 }))
 
 // view engine setup
@@ -47,14 +49,15 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('*',function(req,res,next){
-    res.locals.user = req.user || null;
-    res.locals.currentUser = req.user;
-    next();
+app.get('*', function (req, res, next) {
+  res.locals.user = req.user || null;
+  res.locals.currentUser = req.user;
+  next();
 });
 
 app.use('/book', bookRouter);
 app.use('/', usersRouter);
 app.use('/book/:id/comments', commentsRouters);
+app.use('/admin', adminRouter);
 
 module.exports = app;

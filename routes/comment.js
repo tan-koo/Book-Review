@@ -3,16 +3,13 @@ const express = require('express'),
     router = express.Router({ mergeParams: true }),
     Comment = require('../model/comment'),
     book = require('../model/books');
-// middleware = require('../middleware');
-
-
+const middleware = require('../middleware');
 
 router.get("/", function (req, res) {
     // console.log(req.params.id);
     book.findById(req.params.id, function (error, books) {
-        if (error) {
-            console.log("Error!");
-        } else {
+        if (error) { console.log("Error!"); }
+        else {
             console.log(book);
             res.render("comment/new", { book: books });
         }
@@ -22,15 +19,11 @@ router.get("/", function (req, res) {
 router.post('/', function (req, res) {
     console.log("post comment" + req.params.id);
     book.findById(req.params.id, function (error, books) {
-        if (error) {
-            console.log("error tong 2")
-        }
+        if (error) { console.log("error") }
         else {
             Comment.create({ text: req.body.text, userment: req.user._id }, function (err, result) {
                 console.log(result);
-                if (err) {
-                    console.log("error tong 3");
-                }
+                if (err) { console.log("error tong 3"); }
                 else {
                     books.comments.push(result._id);
                     books.save();
@@ -46,15 +39,12 @@ router.post('/', function (req, res) {
 // edit & update
 router.get("/:comment_id/edit", function (req, res) {
     Comment.findById(req.params.comment_id, function (err, foundcomment) {
-        if (err) {
-            res.redirect("back");
-        }
+        if (err) { res.redirect("back"); }
         else {
             res.render("comment/edit", { book_id: req.params.id, comment: foundcomment })
         }
     })
 })
-
 
 router.put("/:comment_id", function (req, res) {
     let n_ment = req.body.editment;
@@ -62,11 +52,19 @@ router.put("/:comment_id", function (req, res) {
     console.log(n_ment);
     // var n_card = {name:n_ment,imgurl:n_img,desc:n_desc,category:n_tag};
     Comment.findByIdAndUpdate(req.params.comment_id, n_card2, function (err, updatebookment) {
-        if (err) {
-            res.redirect("back");
-        }
+        if (err) { res.redirect("back"); }
         else {
             // console.log(req.body.books)
+            res.redirect('/book/' + req.params.id);
+        }
+    })
+})
+
+// delete
+router.delete("/:comment_id", middleware.chechbookOwnership, function (req, res) {
+    Comment.findByIdAndRemove(req.params.comment_id, function (err) {
+        if (err) { res.redirect("back"); }
+        else {
             res.redirect('/book/' + req.params.id);
         }
     })

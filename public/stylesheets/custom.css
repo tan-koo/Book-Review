@@ -19,7 +19,8 @@ body
 
 .footer { margin-top: 5rem; }
 
-.register-section , .login-section , .newbook-section , .editbook-section , .editment-section
+.register-section , .login-section , .newbook-section , .editbook-section ,
+.editment-section , .editproimg-section , .editinfo-section
 {
   margin-top: 1.5rem;
   padding-left: 20rem;
@@ -45,13 +46,20 @@ body
   margin-top: 1rem;
 }
 
-.search-section , .bookpost-section
+.search-section , .showcat-section
 {
   padding-left: 10rem;
   padding-right: 10rem;
 }
 
 .bookpost-section { margin-top: 0.5rem; }
+
+.profile-section
+{
+  padding-top: 3rem;
+  padding-left: 8rem;
+  padding-right: 8rem;
+}
 
 #navbar-2 { color: #FFF8DC; }
 
