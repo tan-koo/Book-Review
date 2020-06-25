@@ -14,9 +14,7 @@ router.post("/addlaew", function (req, res) {
     let n_tag = req.body.tag;
     let schema_post = { text: n_tag };
     catalog.create(schema_post, function (err, newdata) {
-        if (err) {
-            console.log(err);
-        }
+        if (err) { console.log(err); }
         else {
             res.redirect("/book/");
         }

@@ -61,6 +61,13 @@ body
   padding-right: 8rem;
 }
 
+.card-img-top
+{
+  width: 100%;
+  height: 20vw;
+  object-fit: cover;
+}
+
 #navbar-2 { color: #FFF8DC; }
 
 .checked { color: orange; }

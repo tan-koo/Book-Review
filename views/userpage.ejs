@@ -5,9 +5,11 @@
     <div class="row mb-0">
         <div class="col-lg-6 profile-section mb-0">
             <div class="card bg-secondary">
-                <a href="/user/<%= result1._id %>/editimg">
-                    <img class="card-img-top" src="/uploads/<%= result1.userimg %>">
-                </a>
+                <div class="card-header">
+                    <a href="/user/<%= result1._id %>/editimg">
+                        <img class="card-img-top" src="/uploads/<%= result1.userimg %>">
+                    </a>
+                </div>
                 <div class="card-body">
                     <p class="card-text">Username : <%= result1.username %></p>
                     <p class="card-text">Email : <%= result1.email %></p>
@@ -27,7 +29,9 @@
                 <!-- <p><%= result1.username %></p> -->
                 <% result2.forEach(function(im){ %>
                 <div class="col-lg-3 col-sm-6 col-6 mb-3">
-                    <img src="/uploads/<%= im.imgurl %>" height="150" width="100" class="img-fluid rounded">
+                    <a href="/book/<%= im._id %>">
+                        <img src="/uploads/<%= im.imgurl %>" height="150" width="100" class="img-fluid rounded">
+                    </a>
                 </div>
                 <% }) %>
             </div>

@@ -106,6 +106,7 @@ router.post('/login', passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: true
 }), function (req, res, next) {
+  // req.flash('success', 'Welcome to book-review');
   res.redirect('/book/');
 });
 
@@ -146,9 +147,9 @@ router.get('/register', function (req, res, next) {
 });
 
 router.post('/register', [
-  check('username', 'sai username duay').not().isEmpty(),
-  check('email', 'sai email duay').isEmail(),
-  check('password', 'sai password duay').not().isEmpty()
+  check('username', 'fill username').not().isEmpty(),
+  check('email', 'fill email').isEmail(),
+  check('password', 'fill password').not().isEmpty()
 ], function (req, res, next) {
   const result = validationResult(req);
   var errors = result.errors;
@@ -158,10 +159,14 @@ router.post('/register', [
   else {
     var n_usn = req.body.username;
     var n_email = req.body.email;
+    var n_perm = "";
+    var n_usimg = "userpic-1593004146126.png";
     var n_password = req.body.password;
     var newUser = new User({
       username: n_usn,
       email: n_email,
+      userimg: n_usimg,
+      permission: n_perm,
       password: n_password
     });
     User.findOne({ username: n_usn, email: n_email }, function (err, check) {
@@ -174,7 +179,7 @@ router.post('/register', [
           if (err) { console.log('Where ?') }
         });
         res.location('/');
-        res.redirect('/');
+        res.redirect('/login');
       }
       else {
         res.render("register");

@@ -116,7 +116,12 @@ router.get("/search", function (req, res) {
 
 // new book
 router.get("/new", function (req, res) {
-  res.render("addnewbook");
+  catalog.find({}, function (err, Datacate) {
+    if (err) { }
+    else {
+      res.render("addnewbook", { Songcate: Datacate });
+    }
+  })
 });
 
 router.post("/", upload.single('imgurl'), function (req, res) {
@@ -147,6 +152,7 @@ router.post("/", upload.single('imgurl'), function (req, res) {
           userna.save();
         }
       })
+      // req.flash('success', 'Create book success');
       res.redirect("/book/");
     }
   })
@@ -228,7 +234,12 @@ router.get("/:id", middleware.loginyoung, async function (req, res) {
 // edit & update
 router.get("/:id/edit", middleware.chechbookOwnership, function (req, res) {
   books.findById(req.params.id, function (err, foundbook) {
-    res.render("edit", { book: foundbook })
+    catalog.find({}, function (err, Datacate) {
+      if (err) { }
+      else {
+        res.render("edit", { book: foundbook, Songcate: Datacate })
+      }
+    })
   })
 })
 
@@ -238,7 +249,7 @@ router.put("/:id", upload.single('imgurl'), middleware.chechbookOwnership, funct
     let n_writ = req.body.writer;
     let n_img = req.file.filename;
     let n_desc = req.body.desc;
-    let n_tag = req.body.categories;
+    let n_tag = req.body.tag;
     var n_card = { name: n_name, imgurl: n_img, desc: n_desc, category: n_tag, writer: n_writ };
     books.findByIdAndUpdate(req.params.id, n_card, function (err, updatebook) {
       if (err) {
@@ -266,6 +277,7 @@ router.put("/:id", upload.single('imgurl'), middleware.chechbookOwnership, funct
       else {
         // console.log(req.body.books)
         // console.log('test1')
+        // req.flash('success', 'Edit book success');
         res.redirect('/book/' + req.params.id);
       }
     })

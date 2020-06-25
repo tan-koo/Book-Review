@@ -6,7 +6,7 @@
     <div class="col-lg-3">
       <img src='/uploads/<%= detail.imgurl %>' class="img-fluid rounded" height="250" width="200">
 
-      <% if(currentUser && detail.author.id.equals(currentUser._id)) { %>
+      <% if(currentUser && detail.author.id.equals(currentUser._id) || currentUser.permission == "admin") { %>
       <div class="row mt-3 ml-3 pl-1">
         <div>
           <a class="btn btn-warning mr-3" href="/book/<%= detail._id %>/edit">Edit</a>
@@ -22,6 +22,7 @@
       <h6 class="mb-3">Title : <%= detail.name %></h6>
       <h6 class="mb-3">Author : <%= detail.writer %></h6>
       <h6 class="mb-3">Category : <%= detail.category %></h6>
+      <h6 class="mb-3">Post by : <%= detail.author.username %></h6>
       <h6>Description : <%= detail.desc %></h6>
     </div>
   </div>
@@ -53,7 +54,7 @@
                 <h6 class="mb-0 text-success"><%= comment.text %></h6>
                 <footer class="blockquote-footer">
                   <%= comment.userment.username %>
-                  <% if(currentUser && detail.author.id.equals(currentUser._id) || currentUser.permission == "admin") { %>
+                  <% if(currentUser && comment.userment._id.equals(currentUser._id) || currentUser.permission == "admin") { %>
                   <div class="row pr-3" style="float: right;">
                     <div><a class="btn btn-outline-warning btn-sm"
                       href="/book/<%= detail._id %>/comments/<%= comment._id %>/edit">Edit</a></div>

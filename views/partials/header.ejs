@@ -28,10 +28,11 @@
 <body>
   <nav class="navbar navbar-expand-md bg-primary navbar-dark">
     <div class="container">
-      <a class="navbar-brand textlogo" href="/book"><i class="fas fa-book mr-2"></i>Book Review</a>
+      <a class="navbar-brand textlogo"><i class="fas fa-book mr-2"></i>Book Review</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
+      <a href="/book"><button type="button" class="btn btn-primary nav-item">Home</button></a>
       <div class="collapse navbar-collapse text-center" id="collapsibleNavbar">
         <ul class="navbar-nav ml-auto" style="font-size: large;">
           <form class="form-inline my-2 my-lg-0" action="/book/search" method="GET">
@@ -64,3 +65,7 @@
       </div>
     </div>
   </nav>
+
+  <% if(success && success.length > 0){ %>
+  <div class="alert alert-success mg-auto"><%= success %></div>
+  <% } %>

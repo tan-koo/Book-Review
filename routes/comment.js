@@ -37,7 +37,7 @@ router.post('/', function (req, res) {
 })
 
 // edit & update
-router.get("/:comment_id/edit", function (req, res) {
+router.get("/:comment_id/edit", middleware.checkCommentOwnership, function (req, res) {
     Comment.findById(req.params.comment_id, function (err, foundcomment) {
         if (err) { res.redirect("back"); }
         else {
@@ -46,7 +46,7 @@ router.get("/:comment_id/edit", function (req, res) {
     })
 })
 
-router.put("/:comment_id", function (req, res) {
+router.put("/:comment_id", middleware.checkCommentOwnership, function (req, res) {
     let n_ment = req.body.editment;
     var n_card2 = { text: n_ment }
     console.log(n_ment);
@@ -61,7 +61,7 @@ router.put("/:comment_id", function (req, res) {
 })
 
 // delete
-router.delete("/:comment_id", middleware.chechbookOwnership, function (req, res) {
+router.delete("/:comment_id", middleware.checkCommentOwnership, function (req, res) {
     Comment.findByIdAndRemove(req.params.comment_id, function (err) {
         if (err) { res.redirect("back"); }
         else {

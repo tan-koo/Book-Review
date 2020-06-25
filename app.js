@@ -2,6 +2,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var flash = require('connect-flash');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var methodOverride = require('method-override');
@@ -32,6 +33,7 @@ app.use(session({
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(flash());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,8 +42,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride("_method"));
-
-
 app.use(require('connect-flash')());
 
 app.use(function (req, res, next) {
@@ -51,6 +51,8 @@ app.use(function (req, res, next) {
 
 app.get('*', function (req, res, next) {
   res.locals.user = req.user || null;
+  res.locals.error = req.flash("error");
+  res.locals.success = req.flash("success");
   res.locals.currentUser = req.user;
   next();
 });

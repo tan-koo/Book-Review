@@ -18,6 +18,7 @@ db.on('error', console.error.bind(console, 'Mongodn Connect Error'));
 var userSchema = mongoose.Schema({
     username: String,
     permission: String,
+    userimg: String,
     email: String,
     password: String,
     bookid: [
