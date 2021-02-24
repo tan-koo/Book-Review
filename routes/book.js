@@ -30,17 +30,11 @@ const upload = multer({ storage: storage, filefilter: imagefilter });
 
 // router.get("/", function (req, res) {
 //   books.find({}, function (error, ALLData) {
-//     if (error) {
-//       console.log(error)
-//     }
+//     if (error) { console.log(error) }
 //     else {
 //       catalog.find({}, function (err, Allcate) {
-//         if (err) {
-//           console.log(err)
-//         }
-//         else {
-//           res.render("landing", { SongMa: ALLData, Songma3: Allcate });
-//         }
+//         if (err) { console.log(err) }
+//         else { res.render("landing", { SongMa: ALLData, Songma3: Allcate }); }
 //       })
 //     }
 //   })
@@ -96,9 +90,7 @@ router.get("/search", function (req, res) {
     books.find({ name: regex }, function (err, allposts) {
       if (err) { console.log(err); }
       else {
-        if (allposts.length < 1) {
-          noMatch = "Can not find the post you are looking for";
-        }
+        if (allposts.length < 1) { noMatch = "Can not find the post you are looking for"; }
         res.render("search", { ItemSearch: allposts, noMatch: "mainull" })
       }
     });
@@ -107,9 +99,7 @@ router.get("/search", function (req, res) {
     // Get all posts from DB
     books.find({}, function (err, allposts) {
       if (err) { console.log(err); }
-      else {
-        res.render("search", { ItemSearch: allposts, page: 'posts', noMatch: "null" });
-      }
+      else { res.render("search", { ItemSearch: allposts, page: 'posts', noMatch: "null" }); }
     });
   }
 });
@@ -118,9 +108,7 @@ router.get("/search", function (req, res) {
 router.get("/new", function (req, res) {
   catalog.find({}, function (err, Datacate) {
     if (err) { }
-    else {
-      res.render("addnewbook", { Songcate: Datacate });
-    }
+    else { res.render("addnewbook", { Songcate: Datacate }); }
   })
 });
 
@@ -160,14 +148,10 @@ router.post("/", upload.single('imgurl'), function (req, res) {
 
 // router.get("/categorie/:text", function (req, res) {
 //   books.find({ category: req.params.text }, function (error, AllData2) {
-//     if (error) {
-//       console.log("error");
-//     }
+//     if (error) { console.log("error"); }
 //     else {
 //       catalog.find({}, function (err, Allcate) {
-//         if (err) {
-//           console.log("error")
-//         }
+//         if (err) { console.log("error") }
 //         else {
 //           res.render("showcatagory", { SongMa2: AllData2, SongMa3: Allcate })
 //         }

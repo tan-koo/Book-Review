@@ -6,9 +6,7 @@ var bcrypt = require('bcryptjs');
 
 var passport = require('passport');
 var Localstrate = require('passport-local').Strategy;
-mongoose.connect(mongoDB, {
-    useNewUrlParser: true
-})
+mongoose.connect(mongoDB, { useNewUrlParser: true })
 
 //Connect 
 var db = mongoose.connection;
@@ -40,13 +38,9 @@ module.exports.createUser = function (newUser, callback) {
     });
 };
 
-module.exports.getUserById = function (id, callback) {
-    User.findById(id, callback);
-}
+module.exports.getUserById = function (id, callback) { User.findById(id, callback); }
 module.exports.getUserByName = function (username, callback) {
-    var query = {
-        email: username
-    }
+    var query = { email: username }
     User.findOne(query, callback);
 }
 

@@ -70,31 +70,27 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, function (req, r
     })
 })
 
-// router.post("/",function(req,res){
+// router.post("/", function (req, res) {
 //     let n_name = req.body.name;
 //     let n_image = req.body.image;
 //     let n_desc = req.body.desc;
-//     let n_card = {name:n_name,image:n_image,desc:n_desc};
-//     Tarot.create(n_card, function(error,newCard){
-//         if(error){
-//             console.log("error"); 
-//         } else {
+//     let n_card = { name: n_name, image: n_image, desc: n_desc };
+//     Tarot.create(n_card, function (error, newCard) {
+//         if (error) { console.log("error"); }
+//         else {
 //             console.log("New card added.");
 //             res.redirect("/tarot");
 //         }
 //     });
 // });
 
-// router.get("/new",function(req,res){
-//     res.render("tarots/new");
-// });
+// router.get("/new", function (req, res) { res.render("tarots/new"); });
 
-// router.get("/:id",function(req,res){
-//     Tarot.findById(req.params.id).populate('comments').exec(function(error, idCard){
-//         if(error){
-//             console.log("Error");
-//         } els   e {
-//             res.render("tarots/show",{tarot:idCard});
+// router.get("/:id", function (req, res) {
+//     Tarot.findById(req.params.id).populate('comments').exec(function (error, idCard) {
+//         if (error) { console.log("Error"); }
+//         else {
+//             res.render("tarots/show", { tarot: idCard });
 //         }
 //     });
 // });

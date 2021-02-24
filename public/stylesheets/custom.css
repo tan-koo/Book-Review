@@ -4,7 +4,7 @@
 
 body
 {
-  background-image: linear-gradient(to right, rgb(17, 11, 46),rgb(83, 70, 72));
+  background-image: linear-gradient(to right,#080705, #393c45);
   font-family: 'Quicksand', sans-serif;
 }
 
@@ -82,17 +82,12 @@ body
 
 @media (max-width: 992px)
 {
-  .hidden
-  {
-    display: none;
-  }
+  .hidden { display: none; }
   #right{
     float: center;
     padding-top: 2%;
   }
-  #click-hidden2{
-    background-color: #A9A9A9;
-  }
+  #click-hidden2 { background-color: #A9A9A9; }
 }
 
 /* body {

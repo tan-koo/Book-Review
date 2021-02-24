@@ -94,9 +94,7 @@ function loginyoung(req, res, next) {
 //     res.render('addnewbook');
 // });
 
-// router.get('/book', function(req, res, next) {
-//   res.render('landing');
-// });
+// router.get('/book', function (req, res, next) { res.render('landing'); });
 
 router.get('/login', function (req, res, next) {
   res.render('login');
@@ -153,9 +151,7 @@ router.post('/register', [
 ], function (req, res, next) {
   const result = validationResult(req);
   var errors = result.errors;
-  if (!result.isEmpty()) {
-    res.render('register', { errors: errors });
-  }
+  if (!result.isEmpty()) { res.render('register', { errors: errors }); }
   else {
     var n_usn = req.body.username;
     var n_email = req.body.email;
