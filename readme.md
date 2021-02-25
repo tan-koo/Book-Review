@@ -1,8 +1,26 @@
 
-# hello
+# BOOK REVIEW
 
+## Build setup
 ```bash
-test
+# install dependencies
+$ npm install
+
+# serve with hot reload at localhost:3000
+$ npm start
 ```
 
-![image](https://previews.123rf.com/images/fordzolo/fordzolo1506/fordzolo150600296/41026708-example-white-stamp-text-on-red-backgroud.jpg)
+# Home page
+![image](/public/images/screenshot11.jpg)
+
+# All BOOKS
+![image](/public/images/screenshot14.jpg)
+
+# BOOK DETAILS
+![image](/public/images/screenshot17.jpg)
+
+# ALL COMMENTS
+![image](/public/images/screenshot18.jpg)
+
+# PROFILE
+![image](/public/images/screenshot20.jpg)

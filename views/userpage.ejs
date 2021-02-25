@@ -17,16 +17,11 @@
                         style="float: right;"><i class="fa fa-pencil mr-2" aria-hidden="true"></i>Edit</a>
                 </div>
             </div>
-
-            <!-- <a href="/user/<%= result1._id %>/editimg">
-                <img src="/uploads/<%= result1.userimg %>" style="height: 300px; width: 300px;">
-            </a> -->
         </div>
 
         <div class="col-lg-6 mt-4 mb-0">
             <h3 class="text-center">Book Post</h3>
             <div class="row mt-3">
-                <!-- <p><%= result1.username %></p> -->
                 <% result2.forEach(function(im){ %>
                 <div class="col-lg-3 col-sm-6 col-6 mb-3">
                     <a href="/book/<%= im._id %>">
@@ -36,27 +31,7 @@
                 <% }) %>
             </div>
         </div>
-
-        <!-- <div class="card col-lg-9">
-            <h6 class="mb-3">name : <%= result1.username %></h6>
-            <h6 class="mb-3">email : <%= result1.email %></h6>
-            <a href="/user/<%= result1._id %>/editinfo"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-        </div> -->
     </div>
 </div>
-
-<!-- <div class="container bookpost-section">
-    <h1 class="text-center">Book Post</h1>
-    <div class="row mt-2"> -->
-
-<!-- <p><%= result1.username %></p> -->
-
-<!-- <% result2.forEach(function(im){ %>
-        <div class="col-lg-3 col-sm-6 col-6">
-            <img src="/uploads/<%= im.imgurl %>" height="200" width="150" class="img-fluid rounded">
-        </div>
-        <% }) %>
-    </div>
-</div> -->
 
 <%- include("partials/footer") %>

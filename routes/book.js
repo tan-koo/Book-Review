@@ -28,18 +28,6 @@ const imagefilter = function (req, res, cb) {
 
 const upload = multer({ storage: storage, filefilter: imagefilter });
 
-// router.get("/", function (req, res) {
-//   books.find({}, function (error, ALLData) {
-//     if (error) { console.log(error) }
-//     else {
-//       catalog.find({}, function (err, Allcate) {
-//         if (err) { console.log(err) }
-//         else { res.render("landing", { SongMa: ALLData, Songma3: Allcate }); }
-//       })
-//     }
-//   })
-// });
-
 // book
 router.get('/', function (req, res, next) {
   books.paginate({}, { page: 1, limit: 8, sort: { views: -1 } }, function (err, ALLData) {
@@ -48,8 +36,6 @@ router.get('/', function (req, res, next) {
       catalog.find({}, function (err, Allcate) {
         if (err) { console.log(err) }
         else {
-          // console.log(ALLData);
-          // res.render("landing",{SongMa:ALLData,Songma3:Allcate});
           res.render('landing', {
             SongMa: ALLData.docs, Songma3: Allcate, total: ALLData.total,
             limit: ALLData.limit, page: ALLData.page, pages: ALLData.pages
@@ -71,7 +57,6 @@ router.get('/page/:page-:limit', function (req, res, next) {
       catalog.find({}, function (err, Allcate) {
         if (err) { console.log(err) }
         else {
-          // res.render("landing",{SongMa:ALLData,Songma3:Allcate});
           res.render('landing', {
             SongMa: ALLData.docs, Songma3: Allcate, total: ALLData.total,
             limit: ALLData.limit, page: page, pages: ALLData.pages
@@ -123,9 +108,6 @@ router.post("/", upload.single('imgurl'), function (req, res) {
     id: req.user.id,
     username: req.user.username
   };
-  // let n_comment = req.body.comments;
-  // let n_authurid = req.body.authurID;
-  // let n_nameuser = req.body.nameuser;
   let schema_post = {
     name: n_name, writer: n_writer, imgurl: n_imgurl, desc: n_desc, author: n_author,
     category: n_tag, views: n_views
@@ -140,25 +122,10 @@ router.post("/", upload.single('imgurl'), function (req, res) {
           userna.save();
         }
       })
-      // req.flash('success', 'Create book success');
       res.redirect("/book/");
     }
   })
 });
-
-// router.get("/categorie/:text", function (req, res) {
-//   books.find({ category: req.params.text }, function (error, AllData2) {
-//     if (error) { console.log("error"); }
-//     else {
-//       catalog.find({}, function (err, Allcate) {
-//         if (err) { console.log("error") }
-//         else {
-//           res.render("showcatagory", { SongMa2: AllData2, SongMa3: Allcate })
-//         }
-//       })
-//     }
-//   })
-// })
 
 // category
 router.get('/categorie/:text', function (req, res) {
@@ -168,7 +135,6 @@ router.get('/categorie/:text', function (req, res) {
       catalog.find({}, function (err, Allcate) {
         if (err) { console.log(err) }
         else {
-          // res.render("landing",{SongMa:ALLData,Songma3:Allcate});
           res.render('showcatagory', {
             title: req.params.text, SongMa2: ALLData2.docs, SongMa3: Allcate, total: ALLData2.total,
             limit: ALLData2.limit, page: ALLData2.page, pages: ALLData2.pages
@@ -189,7 +155,6 @@ router.get('/categorie/:text/page/:page-:limit', function (req, res) {
       catalog.find({}, function (err, Allcate) {
         if (err) { console.log(err) }
         else {
-          // res.render("landing",{SongMa:ALLData,Songma3:Allcate});
           res.render('showcatagory', {
             title: req.params.text, SongMa2: ALLData.docs, SongMa3: Allcate, total: ALLData.total,
             limit: ALLData.limit, page: page, pages: ALLData.pages
@@ -208,10 +173,7 @@ router.get("/:id", middleware.loginyoung, async function (req, res) {
     path: 'comments', model: 'Comment', populate: ({ path: 'userment', model: 'User' })
   }).exec(function (error, idbook) {
     if (error) { console.log(error) }
-    else {
-      // console.log(idbook);
-      res.render("showdetail", { detail: idbook });
-    }
+    else { res.render("showdetail", { detail: idbook }); }
   });
 });
 
@@ -220,9 +182,7 @@ router.get("/:id/edit", middleware.chechbookOwnership, function (req, res) {
   books.findById(req.params.id, function (err, foundbook) {
     catalog.find({}, function (err, Datacate) {
       if (err) { }
-      else {
-        res.render("edit", { book: foundbook, Songcate: Datacate })
-      }
+      else { res.render("edit", { book: foundbook, Songcate: Datacate }) }
     })
   })
 })
@@ -240,11 +200,7 @@ router.put("/:id", upload.single('imgurl'), middleware.chechbookOwnership, funct
         console.log("test 2");
         res.redirect("/book");
       }
-      else {
-        // console.log(req.body.books)
-        // console.log('test1')
-        res.redirect('/book/' + req.params.id);
-      }
+      else { res.redirect('/book/' + req.params.id); }
     })
   }
   else {
@@ -258,12 +214,7 @@ router.put("/:id", upload.single('imgurl'), middleware.chechbookOwnership, funct
         console.log("test 2");
         res.redirect("/book");
       }
-      else {
-        // console.log(req.body.books)
-        // console.log('test1')
-        // req.flash('success', 'Edit book success');
-        res.redirect('/book/' + req.params.id);
-      }
+      else { res.redirect('/book/' + req.params.id); }
     })
   }
 })
@@ -272,9 +223,7 @@ router.put("/:id", upload.single('imgurl'), middleware.chechbookOwnership, funct
 router.delete("/:id", middleware.chechbookOwnership, function (req, res) {
   books.findByIdAndRemove(req.params.id, function (err) {
     if (err) { res.redirect('/book'); }
-    else {
-      res.redirect('/book');
-    }
+    else { res.redirect('/book'); }
   })
 })
 

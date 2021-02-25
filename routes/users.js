@@ -45,9 +45,7 @@ router.get('/user/:userid', function (req, res) {
 router.get("/user/:userid/editimg", function (req, res) {
   User.findById(req.params.userid, function (err, founduser) {
     if (err) { console.log("test 2"); }
-    else {
-      res.render("userpicedit", { user: founduser })
-    }
+    else { res.render("userpicedit", { user: founduser }) }
   })
 })
 
@@ -56,18 +54,14 @@ router.put("/user/:userid", upload.single('userpic'), function (req, res) {
   var n_card = { userimg: n_img };
   User.findByIdAndUpdate(req.params.userid, n_card, function (err, updateimguser) {
     if (err) { console.log("test 2"); }
-    else {
-      res.redirect('/user/' + req.params.userid);
-    }
+    else { res.redirect('/user/' + req.params.userid); }
   })
 })
 
 router.get("/user/:userid/editinfo", function (req, res) {
   User.findById(req.params.userid, function (err, founduser) {
     if (err) { console.log("test 2"); }
-    else {
-      res.render("editinfo", { user: founduser })
-    }
+    else { res.render("editinfo", { user: founduser }) }
   })
 })
 
@@ -77,24 +71,14 @@ router.put("/user/:userid/infoedit", upload.single('userpic'), function (req, re
   var n_card = { username: n_name, email: n_email };
   User.findByIdAndUpdate(req.params.userid, n_card, function (err, updateinfouser) {
     if (err) { console.log("test 2"); }
-    else {
-      res.redirect('/user/' + req.params.userid);
-    }
+    else { res.redirect('/user/' + req.params.userid); }
   })
 })
 
 function loginyoung(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  else {
-    res.redirect('/login');
-  }
+  else { res.redirect('/login'); }
 }
-
-// router.get('/new', loginyoung,function(req, res, next) {
-//     res.render('addnewbook');
-// });
-
-// router.get('/book', function (req, res, next) { res.render('landing'); });
 
 router.get('/login', function (req, res, next) {
   res.render('login');
@@ -104,7 +88,6 @@ router.post('/login', passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: true
 }), function (req, res, next) {
-  // req.flash('success', 'Welcome to book-review');
   res.redirect('/book/');
 });
 
@@ -132,9 +115,7 @@ passport.use(new Localstrategy(function (username, password, done) {
         if (err) throw error
         console.log(isMatch);
         if (isMatch) { return done(null, user) }
-        else {
-          return done(null, false)
-        }
+        else { return done(null, false) }
       });
     }
   });
@@ -177,9 +158,7 @@ router.post('/register', [
         res.location('/');
         res.redirect('/login');
       }
-      else {
-        res.render("register");
-      }
+      else { res.render("register"); }
     })
   }
 });

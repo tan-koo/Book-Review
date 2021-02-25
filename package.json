@@ -1,4 +1,6 @@
+
 {
+
   "name": "projectc",
   "version": "0.0.0",
   "private": true,
@@ -6,6 +8,7 @@
     "start": "node ./bin/www",
     "startd": "nodemon ./bin/www"
   },
+  
   "dependencies": {
     "bcrypt": "^4.0.1",
     "bcryptjs": "^2.4.3",
@@ -33,4 +36,5 @@
     "passport-local": "*",
     "passport-local-mongoose": "^6.0.1"
   }
+
 }
